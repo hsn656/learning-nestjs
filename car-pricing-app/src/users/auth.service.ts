@@ -2,12 +2,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { generateSalt,hashPassword,comparePassword } from './lib/securePassword';
 
-import { scrypt as _scrypt } from 'crypto';
-import { promisify } from 'util';
-
-
-const scrypt = promisify(_scrypt);
-
 @Injectable()
 export class AuthService {
     constructor(private readonly usersService:UsersService) {}
