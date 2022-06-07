@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Session, UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/guards/auth.guard';
-import { serialize } from 'src/interceptors/serialize.interceptor';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { CreateUserDto } from './dtos/create-user.dto';
@@ -10,7 +10,7 @@ import { User } from './users.entity';
 import { UsersService } from './users.service';
 
 
-@serialize(UserDto)
+@Serialize(UserDto)
 @Controller('auth')
 export class UsersController {
 
