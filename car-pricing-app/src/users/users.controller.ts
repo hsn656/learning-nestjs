@@ -1,11 +1,10 @@
-import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Patch, Post, Session, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Patch, Post, Session } from '@nestjs/common';
 import { serialize } from 'src/interceptors/serialize.interceptor';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
-import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 import { User } from './users.entity';
 import { UsersService } from './users.service';
 
@@ -33,7 +32,6 @@ export class UsersController {
         return user;
     }
 
-    @UseInterceptors(CurrentUserInterceptor)
     @Get("me")
     async me(@CurrentUser() user:User){
         return user;
@@ -49,7 +47,6 @@ export class UsersController {
         return await this.userService.findAll();
     }
 
-    @UseInterceptors(ClassSerializerInterceptor)
     @Get("users/:id")
     async findOne(id:number){
         return await this.userService.findOne(id);
