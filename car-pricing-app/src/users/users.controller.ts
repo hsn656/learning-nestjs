@@ -1,4 +1,5 @@
-import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Patch, Post, Session } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Session, UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/guards/auth.guard';
 import { serialize } from 'src/interceptors/serialize.interceptor';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
@@ -33,6 +34,7 @@ export class UsersController {
     }
 
     @Get("me")
+    @UseGuards(AuthGuard)
     async me(@CurrentUser() user:User){
         return user;
     }
